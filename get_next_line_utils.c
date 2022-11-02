@@ -6,11 +6,12 @@
 /*   By: kyalexan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 21:52:25 by kyalexan          #+#    #+#             */
-/*   Updated: 2022/11/02 22:05:34 by kyalexan         ###   ########.fr       */
+/*   Updated: 2022/11/02 23:10:10 by kyalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include "get_next_line.h"
 
 static char	*returningfree(char *tofree, char *ret)
 {
