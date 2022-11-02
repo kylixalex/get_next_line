@@ -1,4 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kyalexan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/02 21:52:25 by kyalexan          #+#    #+#             */
+/*   Updated: 2022/11/02 22:05:34 by kyalexan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdlib.h>
+
+static char	*returningfree(char *tofree, char *ret)
+{
+	free(tofree);
+	return (ret);
+}
 
 int	gnl_indexof(char *s, char c)
 {
@@ -16,18 +34,16 @@ int	gnl_indexof(char *s, char c)
 	return (i);
 }
 
-char	*gnl_strjoin(char *line, int *linelength, const char buf[BUFFER_SIZE + 2])
+char	*gnl_strjoin(char *line, int *linelength,
+		const char buf[BUFFER_SIZE + 2])
 {
 	char	*newline;
-	int	i;
+	int		i;
 
 	newline = malloc(*linelength + BUFFER_SIZE + 2);
 	i = 0;
 	if (!newline)
-	{
-		free(line);
-		return (NULL);
-	}
+		return (returningfree(line, NULL));
 	while (i < *linelength)
 	{
 		newline[i] = line[i];
@@ -39,14 +55,13 @@ char	*gnl_strjoin(char *line, int *linelength, const char buf[BUFFER_SIZE + 2])
 		if (newline[i] == '\n')
 		{
 			i++;
-			break;
+			break ;
 		}
 		i++;
 	}
 	newline[i] = '\0';
 	*linelength = i;
-	free(line);
-	return (newline);
+	return (returningfree(line, newline));
 }
 
 void	gnl_cleanbuf(char buf[BUFFER_SIZE + 2])
@@ -68,15 +83,8 @@ void	gnl_cleanbuf(char buf[BUFFER_SIZE + 2])
 	else
 	{
 		while (i < BUFFER_SIZE)
-		{
-			buf[j] = buf[i];
-			i++;
-			j++;
-		}
+			buf[j++] = buf[i++];
 		while (j < BUFFER_SIZE)
-		{
-			buf[j] = '\0';
-			j++;
-		}
+			buf[j++] = '\0';
 	}
 }
